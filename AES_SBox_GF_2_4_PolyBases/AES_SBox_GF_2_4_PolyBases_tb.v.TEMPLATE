@@ -1,0 +1,104 @@
+/*****************************************************
+*       _________        __________               
+*      /   _____/        \______   \ _______  ___ 
+*      \_____  \   ______ |    |  _//  _ \  \/  / 
+*      /        \ /_____/ |    |   (  <_> >    <  
+*     /_______  /         |______  /\____/__/\_ \ 
+*             \/                 \/            \/ 
+*
+*****************************************************/
+
+/*****************************************************
+* Last Modified: Utsav Banerjee (25th June 2023)
+*****************************************************/
+
+
+
+`timescale 1ns/1ps
+
+// Test-Bench to verify S-Box design against LUT-based S-Box specification
+
+module aes_sbox_test_tb ();
+
+    parameter CLOCK_PERIOD = 10;   // 100 MHz
+
+	reg	    [7:0]	in;
+	reg	            test_clk, test_error;
+	wire	[7:0]	out_LUT, out_DUT;
+	event           terminate_sim;
+
+    // GOLDEN SPEC
+    // LUT-Based S-Box 
+	AES_SBox_LUT u_AES_SBox_LUT (.out(out_LUT), .in(in));
+    // GOLDEN SPEC
+
+    // GF((2^4)^2) Composite Field S-Box  with LUT-Based GF(2^4) Inverter
+	AES_SBox_GF_2_4_PolyBasis_i_j_k u_AES_SBox_DUT (.out(out_DUT), .in(in));
+
+	// // VCD Dump
+	// initial
+	// begin
+	//     $dumpfile("aes_sbox_dump.vcd");
+	//     $dumpvars(0, u_DUT);
+	// end
+
+	// Test Inputs
+    always @(negedge test_clk)
+    begin
+        if(in == 8'hFF)
+        begin
+            #1 -> terminate_sim;
+        end
+        else
+        begin
+            in <= in + 1;
+        end
+    end
+        
+    always @(posedge test_clk)
+    begin
+        if(out_DUT != out_LUT || out_DUT == 8'hZZ || out_DUT == 8'hXX)
+        begin
+            $display("DUT ERROR AT TIME %d", $time);
+            $display("Expected Value = %h, Simulated Value = %h", out_LUT, out_DUT);
+            test_error = 1;
+        end
+    end
+
+    initial
+    @(terminate_sim)
+    begin
+        $display("END OF SIMULATION");
+        if(test_error == 1'b0)
+        begin
+            $display("TEST RESULT: PASS");
+        end
+        else
+        begin
+            $display("TEST RESULT: FAIL");
+        end
+        $display("##################");
+        #1  $finish;
+    end
+
+	// // Text Version Scope / Logic Analyzer:
+	// initial
+	// begin
+	//     $monitor("%g ns: in=%x out_LUT=%x out_DUT=%x", $time, in, out_LUT, out_DUT);
+	// end
+
+	initial
+    begin
+	    test_clk = 1'b0;
+        in = 8'h00;
+        test_error = 0;
+    end
+
+	// TEST CLOCK (Square Wave Generator)
+	always
+    begin
+	    #(CLOCK_PERIOD/2)	test_clk = ~test_clk;
+    end
+
+endmodule
+
