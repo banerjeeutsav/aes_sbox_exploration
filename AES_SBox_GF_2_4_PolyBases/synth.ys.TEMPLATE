@@ -1,0 +1,33 @@
+#=====================================================
+# Last Modified: Utsav Banerjee (25th June 2023)
+#=====================================================
+
+# read design
+read_verilog ../aes_sbox_modules.v
+read_verilog AES_SBox_GF_2_4_PolyBases.v
+hierarchy -check
+hierarchy -top AES_SBox_GF_2_4_PolyBasis_i_j_k
+#flatten
+
+# high level synthesis
+proc; opt; clean
+fsm; opt; clean
+memory; opt; clean
+
+# low level synthesis
+techmap; opt; clean
+
+# map to target architecture
+dfflibmap -liberty ../stdcells.lib
+abc -liberty ../stdcells.lib
+
+# split larger signals
+splitnets -ports; opt; clean
+
+# write synthesis output
+write_verilog synth.v
+write_spice synth.sp
+
+# print synthesis reports
+stat
+stat -liberty ../stdcells.lib
