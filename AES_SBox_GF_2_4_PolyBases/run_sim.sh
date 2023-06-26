@@ -17,10 +17,10 @@ do
             iverilog -o aes_sbox ../aes_sbox_lut.v ../aes_sbox_modules.v AES_SBox_GF_2_4_PolyBases.v AES_SBox_GF_2_4_PolyBases_tb.v
             vvp aes_sbox > sim.log
             if grep -q "PASS" sim.log; then
-                echo "Test ${i}-${j}-${k} ... PASS"
+                echo "Test ${i}_${j}_${k} ... PASS"
             fi
             if grep -q "FAIL" sim.log; then
-                echo "Test ${i}-${j}-${k} ... FAIL"
+                echo "Test ${i}_${j}_${k} ... FAIL"
                 err_count=$((err_count+1))
             fi
             rm sim.log
