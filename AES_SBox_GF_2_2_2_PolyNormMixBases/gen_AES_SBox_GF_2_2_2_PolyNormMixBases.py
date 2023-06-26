@@ -7,6 +7,14 @@
 import os, binascii
 import numpy as np
 
+#=====================================================
+#
+# Auto-Generate Verilog for 432 S-Box Designs
+#
+# Ref: Canright, "A Very Compact Rijndael S-Box," 2004
+#
+#=====================================================
+
 def get_GF_2_2_Sum (A, B):
     if A == '0' and B == '0':
         return '0'
