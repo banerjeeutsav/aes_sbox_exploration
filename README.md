@@ -1,6 +1,6 @@
-# Design Space Exploration of AES S-Box
+# AES S-Box Explorer
 
-This repository presents Python-based programs to generate various S-Box designs for the [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) with the GF(2^8) field operations implemented in GF((2^4)^2) and GF(((2^2)^2)^2) composite field representations. Automation scripts are also provided to simulate and verify the designs using [Icarus Verilog](https://bleyer.org/icarus) as well as synthesize the designs using [Yosys](https://yosyshq.net/yosys), both widely used open-source EDA tools.
+AES S-Box Explorer provides a set of Python-based programs to generate various S-Box designs for the [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) with the GF(2^8) field operations implemented in GF((2^4)^2) and GF(((2^2)^2)^2) composite field representations. Automation scripts are also provided to simulate and verify the designs using [Icarus Verilog](https://bleyer.org/icarus) as well as synthesize the designs using [Yosys](https://yosyshq.net/yosys), both widely used open-source EDA tools.
 
 ### Usage
 
