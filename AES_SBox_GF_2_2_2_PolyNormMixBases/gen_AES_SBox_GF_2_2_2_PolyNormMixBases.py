@@ -331,17 +331,13 @@ def sanitize_Matrix_8x8 (A):
                 normalize15 = 1
             if A[i][j] < 0.001:
                 A[i][j] = 0
-    #if (normalize3+normalize5+normalize7+normalize15) > 1:
-    #    print "NORM ERROR Detected"
     if normalize3 == 1 and normalize9 == 1:
         normalize3 = 0
         normalize9 = 1
-    #    print "NORM ERROR Corrected"
     if normalize3 == 1 and normalize5 == 1 and normalize15 == 1:
         normalize3 = 0
         normalize5 = 0
         normalize15 = 1
-    #    print "NORM ERROR Corrected"
     if normalize3 == 1:
         for i in range(8):
             for j in range(8):
@@ -573,7 +569,6 @@ def gen_GF_2_2_2_SBox_RTL_PolyNormMixBases ():
             for j in range(6):
                 for k in range(3):
                     count = count + 1
-                    #print(count)
                     # Determine types of Bases
                     if GF8_Pwrs[i][1] == 0:
                         GF8_Basis = 'Poly'
@@ -706,7 +701,6 @@ def gen_GF_2_2_2_SBox_RTL_PolyNormMixBases ():
             for j in range(6):
                 for k in range(3):
                     count = count + 1
-                    #print(count)
                     # Determine types of Bases
                     if GF8_Pwrs[i][1] == 0:
                         GF8_Basis = 'Poly'
