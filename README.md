@@ -1,10 +1,10 @@
 # AES S-Box Explorer
 
-AES S-Box Explorer provides a set of Python-based programs to generate various S-Box designs for the [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) with the GF(2^8) field operations implemented in GF((2^4)^2) and GF(((2^2)^2)^2) composite field representations. Automation scripts are also provided to simulate and verify the designs using [Icarus Verilog](https://bleyer.org/icarus) as well as synthesize the designs using [Yosys](https://yosyshq.net/yosys), both widely used open-source EDA tools.
+AES S-Box Explorer provides a Python-based framework to generate various S-Box designs for the [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) with the GF(2^8) field operations implemented in GF((2^4)^2) and GF(((2^2)^2)^2) composite field representations. Automation scripts are also provided to simulate and verify the designs using [Icarus Verilog](https://bleyer.org/icarus) as well as synthesize the designs using [Yosys](https://yosyshq.net/yosys), both widely used open-source EDA tools.
 
 ### Usage
 
-This repository has been tested on Ubuntu 22.04.1 LTS and the pre-requisites can be installed as ```sudo apt install python2 iverilog yosys```.
+This framework has been tested on Ubuntu 22.04.1 LTS and the pre-requisites can be installed as ```sudo apt install python2 iverilog yosys```.
 
 The ```aes_sbox_modules.v``` file contains all the sub-module definitions required for various S-Box implementations. The ```aes_sbox_lut.v``` file contains the LUT-based S-Box implementation used as golden reference specification for verifying the composite field S-Box implementations. The ```stdcells.lib``` file should be replaced with the appropriate standard cell library for ASIC synthesis.
 
